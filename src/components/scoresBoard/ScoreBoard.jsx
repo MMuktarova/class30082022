@@ -9,17 +9,28 @@ class ScoreBoard extends Component{
     }
     addOneVote = (index) => {
         const copyState = [...this.state.teams]
+        const copyState2 = [...this.state.teams]
         copyState[index].votes = copyState[index].votes + 1
-        this.setState({teams:copyState})
+        
+        
+        const winner = copyState2.reduce((prev, cur) => {
+            if (prev.votes > cur.votes) {
+                return prev
+            }
+            return cur
+        })
+        console.log(winner)
+        this.setState({teams:copyState,winner})
     }
     render() {
-        const {teams} =this.state
+        const { teams } = this.state
+        const {winner} = this.state
         return (
             <div style={styles.container}>
                 {
                     teams.map((team, index) => {
                         return (
-                            <div style={styles.box} key={team.id}>
+                            <div key={team.id} style={styles.box}>
                                 <img
                                     src={team.img}
                                     alt={team.nameClub}
@@ -28,7 +39,8 @@ class ScoreBoard extends Component{
                                 <h3>{team.nameClub}</h3>
 
                                 <button
-                                    onClick={() => this.addOneVote(index)}>
+                                    onClick={() => this.addOneVote(index)}
+                                    style={(team === winner) ? styles.button : styles.box}>
                                     VOTE
                                 </button>
 

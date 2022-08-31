@@ -4,9 +4,14 @@ export const styles = {
         height: "150px"
     },
     container: {
-        display: "flex"
+        display: "flex",
+        backgroundColor: "beige",
+        color:"black"
     },
     box: {
         width:"50%"
+    },
+    button: {
+        backgroundColor:"red"
     }
 }
